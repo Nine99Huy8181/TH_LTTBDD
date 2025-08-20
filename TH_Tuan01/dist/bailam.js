@@ -1,5 +1,5 @@
 "use strict";
-//04
+//05
 class BankAccount {
     constructor(balance = 0) {
         this.balance = balance;
@@ -27,3 +27,29 @@ const account = new BankAccount(5000000);
 console.log(account.deposit(1000));
 console.log(account.withdraw(2000));
 console.log(account.getBalance());
+//06
+class Book {
+    constructor(title, author, year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
+}
+//07
+class User {
+    constructor(name) {
+        this._name = name;
+    }
+    get name() {
+        return this._name;
+    }
+    set name(name) {
+        if (name.length > 0) {
+            this._name = name;
+        }
+    }
+}
+const user = new User('Huy');
+console.log(user.name);
+user.name = 'Khoa';
+console.log(user.name);
