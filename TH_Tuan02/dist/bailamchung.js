@@ -74,4 +74,15 @@ const exercise8 = () => {
         console.log("Chain result:", result);
     });
 };
-exercise8();
+// exercise8();
+//09
+const excercise9 = (numbers) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const evenNumbers = numbers.filter(num => num % 2 === 0);
+            resolve(evenNumbers);
+        }, 1000);
+    });
+};
+const bai09 = excercise9([1, 2, 3, 4, 5, 6, 7]);
+bai09.then((rs) => console.log(rs));
