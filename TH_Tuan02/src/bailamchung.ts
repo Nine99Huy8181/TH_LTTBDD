@@ -25,6 +25,40 @@ const simulateTask = (time: number):Promise<string> => {
     })
 }
 
-const bai05 = simulateTask(1000);
-bai05.then((rs) => console.log(rs)).catch((error) => console.log(error.message))
+// const bai05 = simulateTask(1000);
+// bai05.then((rs) => console.log(rs)).catch((error) => console.log(error.message))
 
+//06
+const excercise6 = async ():Promise<void> => {
+    const tasks = [
+        simulateTask(1000),
+        simulateTask(1500),
+        simulateTask(500)
+    ]
+
+    try{
+        const result = await Promise.all(tasks);
+        console.log(result);
+    } catch(error){
+        console.log("Error: ", error);
+    }
+}
+// excercise6();
+
+//07
+const exercise7 = async (): Promise<void> => {
+  const tasks = [
+    simulateTask(1000),
+    simulateTask(1500),
+    simulateTask(800)
+  ];
+
+  try {
+    const result = await Promise.race(tasks);
+    console.log("First task completed:", result);
+  } catch (error) {
+    console.error("First task failed:", error);
+  }
+};
+
+exercise7();
