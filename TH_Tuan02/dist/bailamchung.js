@@ -8,15 +8,6 @@
 //             else reject(new Error("Random number too low"))
 //         }, 500)
 //     })
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 //     randomPromise.then((rs) => console.log(rs))
 //     .catch((error) => console.log(error.message)
 //     )
@@ -33,36 +24,36 @@ const simulateTask = (time) => {
 // const bai05 = simulateTask(1000);
 // bai05.then((rs) => console.log(rs)).catch((error) => console.log(error.message))
 //06
-const excercise6 = () => __awaiter(void 0, void 0, void 0, function* () {
+const excercise6 = async () => {
     const tasks = [
         simulateTask(1000),
         simulateTask(1500),
         simulateTask(500)
     ];
     try {
-        const result = yield Promise.all(tasks);
+        const result = await Promise.all(tasks);
         console.log(result);
     }
     catch (error) {
         console.log("Error: ", error);
     }
-});
+};
 // excercise6();
 //07
-const exercise7 = () => __awaiter(void 0, void 0, void 0, function* () {
+const exercise7 = async () => {
     const tasks = [
         simulateTask(1000),
         simulateTask(1500),
         simulateTask(800)
     ];
     try {
-        const result = yield Promise.race(tasks);
+        const result = await Promise.race(tasks);
         console.log("First task completed:", result);
     }
     catch (error) {
         console.error("First task failed:", error);
     }
-});
+};
 // exercise7();
 //08
 const exercise8 = () => {
@@ -84,5 +75,21 @@ const excercise9 = (numbers) => {
         }, 1000);
     });
 };
-const bai09 = excercise9([1, 2, 3, 4, 5, 6, 7]);
-bai09.then((rs) => console.log(rs));
+// const bai09 = excercise9([1, 2, 3, 4, 5, 6, 7]);
+// bai09.then((rs) => console.log(rs))
+//10
+const randomPromise1 = new Promise((resolve, reject) => {
+    const random = Math.random();
+    setTimeout(() => {
+        if (random > 0.5) {
+            resolve("Success!");
+        }
+        else {
+            reject(new Error("Failed!"));
+        }
+    }, 1000);
+});
+randomPromise1
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error.message))
+    .finally(() => console.log("Done"));

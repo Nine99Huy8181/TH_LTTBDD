@@ -84,6 +84,23 @@ const excercise9 = (numbers: number[]): Promise<number[]> => {
     }, 1000);
   });
 };
-const bai09 = excercise9([1, 2, 3, 4, 5, 6, 7]);
-bai09.then((rs) => console.log(rs))
+// const bai09 = excercise9([1, 2, 3, 4, 5, 6, 7]);
+// bai09.then((rs) => console.log(rs))
 
+
+//10
+
+const randomPromise1 = new Promise<string>((resolve, reject) => {
+    const random = Math.random();
+    setTimeout(() => {
+        if (random > 0.5) {
+        resolve("Success!");
+        } else {
+        reject(new Error("Failed!"));
+        }
+    }, 1000);
+});
+randomPromise1
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error.message))
+    .finally(() => console.log("Done"));
