@@ -60,5 +60,17 @@ const exercise7 = async (): Promise<void> => {
     console.error("First task failed:", error);
   }
 };
+// exercise7();
 
-exercise7();
+
+//08
+const exercise8 = (): void => {
+  Promise.resolve(2)
+    .then((num) => num * num)
+    .then((num) => num * 2)
+    .then((num) => num + 5)
+    .then((result) => {
+      console.log("Chain result:", result);
+    });
+};
+exercise8();
