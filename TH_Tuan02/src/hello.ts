@@ -1,5 +1,13 @@
-function hello(name: string): string {
-  return `Hello, ${name}!`;
-}
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("foo");
+  }, 300);
+});
 
-console.log(hello("200Lab"));
+promise1.then((value) => {
+  console.log(value);
+  // Expected output: "foo"
+});
+
+console.log(promise1);
+// Expected output: [object Promise]

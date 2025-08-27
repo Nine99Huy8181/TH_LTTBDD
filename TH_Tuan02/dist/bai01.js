@@ -6,4 +6,3 @@ const excercise = () => {
         }, 2000);
     });
 };
-console.log(excercise());
