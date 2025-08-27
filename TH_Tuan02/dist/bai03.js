@@ -7,4 +7,4 @@ const excercise3 = () => {
     });
 };
 const bai03 = excercise3();
-bai03.then((rj) => console.log(rj)).catch((error) => console.log(error.message));
+bai03.then((rs) => console.log(rs)).catch((error) => console.log(error.message));
