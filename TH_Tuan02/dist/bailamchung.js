@@ -8,88 +8,33 @@
 //             else reject(new Error("Random number too low"))
 //         }, 500)
 //     })
-//     randomPromise.then((rs) => console.log(rs))
-//     .catch((error) => console.log(error.message)
-//     )
-// }
-// excercise4();
-//05
-const simulateTask = (time) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve("Done!");
-        }, time);
-    });
-};
-// const bai05 = simulateTask(1000);
-// bai05.then((rs) => console.log(rs)).catch((error) => console.log(error.message))
-//06
-const excercise6 = async () => {
-    const tasks = [
-        simulateTask(1000),
-        simulateTask(1500),
-        simulateTask(500)
+// Polyfill cho Promise.allSettled
+if (!Promise.allSettled) {
+    Promise.allSettled = function (promises) {
+        return Promise.all(promises.map(p => Promise.resolve(p).then(value => ({ status: "fulfilled", value }), reason => ({ status: "rejected", reason }))));
+    };
+}
+async function fetchTodo(id) {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    if (!response.ok)
+        throw new Error(`Failed to fetch todo ${id}`);
+    return await response.json();
+}
+async function fetchMultipleWithStatus() {
+    const promises = [
+        fetchTodo(1),
+        fetchTodo(999), // URL không hợp lệ để mô phỏng lỗi
+        fetchTodo(3)
     ];
-    try {
-        const result = await Promise.all(tasks);
-        console.log(result);
-    }
-    catch (error) {
-        console.log("Error: ", error);
-    }
-};
-// excercise6();
-//07
-const exercise7 = async () => {
-    const tasks = [
-        simulateTask(1000),
-        simulateTask(1500),
-        simulateTask(800)
-    ];
-    try {
-        const result = await Promise.race(tasks);
-        console.log("First task completed:", result);
-    }
-    catch (error) {
-        console.error("First task failed:", error);
-    }
-};
-// exercise7();
-//08
-const exercise8 = () => {
-    Promise.resolve(2)
-        .then((num) => num * num)
-        .then((num) => num * 2)
-        .then((num) => num + 5)
-        .then((result) => {
-        console.log("Chain result:", result);
-    });
-};
-// exercise8();
-//09
-const excercise9 = (numbers) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const evenNumbers = numbers.filter(num => num % 2 === 0);
-            resolve(evenNumbers);
-        }, 1000);
-    });
-};
-// const bai09 = excercise9([1, 2, 3, 4, 5, 6, 7]);
-// bai09.then((rs) => console.log(rs))
-//10
-const randomPromise1 = new Promise((resolve, reject) => {
-    const random = Math.random();
-    setTimeout(() => {
-        if (random > 0.5) {
-            resolve("Success!");
+    const results = await Promise.allSettled(promises);
+    results.forEach((result, index) => {
+        if (result.status === "fulfilled") {
+            console.log(`Todo ${index + 1}: Success`, result.value);
         }
         else {
-            reject(new Error("Failed!"));
+            console.log(`Todo ${index + 1}: Failed`, result.reason.message);
         }
-    }, 1000);
-});
-randomPromise1
-    .then((result) => console.log(result))
-    .catch((error) => console.error(error.message))
-    .finally(() => console.log("Done"));
+    });
+}
+// Chạy thử
+fetchMultipleWithStatus();
