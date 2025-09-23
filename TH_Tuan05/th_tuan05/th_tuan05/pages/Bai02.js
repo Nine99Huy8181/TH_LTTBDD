@@ -1,7 +1,7 @@
-import {View, Image, Text, FlatList, StyleSheet, StatusBar, ScrollView, TouchableOpacity, ActivityIndicator} from "react-native";
+import {View, Image, Text, FlatList, StyleSheet, StatusBar, ScrollView, TouchableOpacity, ActivityIndicator, SafeAreaView} from "react-native";
 
 import {useEffect, useState} from "react"
-import ItemComponent from '../components/ItemComponent'
+import ItemComponent2 from '../components/ItemComponent2'
 
 export default Bai01 = () => {
   const [loading, setLoading] = useState(true);
@@ -11,23 +11,21 @@ export default Bai01 = () => {
     fetchProducts();
   }, []);
 
-  const fetchProducts = () => {
-    setLoading(true); 
-    return fetch('https://67c81bf20acf98d07084e0cf.mockapi.io/products')
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  const fetchProducts = async () => {
+    try{
+      const res = await fetch('https://67c81bf20acf98d07084e0cf.mockapi.io/customers');
+      const data = await res.json();
+      setProducts(data);
+    } catch(error){
+      console.log(error)
+    } finally{
+      setLoading(false);
+    }
   };
 
   return(
-    <View style={{}}>
+      <SafeAreaView style={{flex: 1}}>
+            <View style={{flex: 1}}>
       <View style={{backgroundColor: '#2196F3', flexDirection: 'row', justifyContent: 'space-between', padding: 10}}>
         <TouchableOpacity>
           <Image source={require('../assets/ant-design_arrow-left-outlined.png')}/>
@@ -45,8 +43,7 @@ export default Bai01 = () => {
             Bạn có thắc mắc với sản phẩm vừa xem. Đừng ngại chat với shop!
           </Text>      
       </View>
-
-      {loading ? 
+        {loading ? 
         <View style={{padding: 10}}>
           <ActivityIndicator size="large"/>
         </View>
@@ -54,9 +51,11 @@ export default Bai01 = () => {
         <FlatList
         data={products}
         keyExtractor={(item) => item.id}
-        renderItem={({item}) => <ItemComponent item={item}/>}
-        showVerticalScrollIndicator={false}
-        contentContainerStyle={{}}
+        renderItem={({item}) => <ItemComponent2 item={item}/>}
+        numColumns={2}
+        showVerticalScrollIndicator={true}
+        contentContainerStyle={{paddingBottom: 80}}
+        columnWrapperStyle={{justifyContent: 'space-around'}}
       />
       }
 
@@ -72,5 +71,6 @@ export default Bai01 = () => {
         </TouchableOpacity>
       </View>
     </View>
+      </SafeAreaView>
   );
 }

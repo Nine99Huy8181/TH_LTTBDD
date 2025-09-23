@@ -8,7 +8,7 @@ export default function ItemComponent({item}) {
       </View>
       <View  style={{width: 120}}>
         <Text>{item.name}</Text>
-        <Text>{item.shop}</Text>
+        <Text style={{color: 'gray'}}>{item.shop}</Text>
       </View>
       <View>
         <TouchableOpacity style={{backgroundColor: 'red', width: 80, height: 35}}>
