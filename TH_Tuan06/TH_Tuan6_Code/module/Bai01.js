@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 export default Bai01 = () => {
   return(
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ColorSelection">
+      <Stack.Navigator initialRouteName="ProductDetail">
         <Stack.Screen name="ProductDetail" component={ProductDetail}/>
         <Stack.Screen name="ColorSelection" component={ColorSelection}/>
       </Stack.Navigator>

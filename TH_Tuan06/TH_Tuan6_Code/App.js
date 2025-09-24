@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import Bai03 from './module/Bai03'
+import Bai01 from './module/Bai01'
 
 export default function App() {
   return (
-    <Bai03/>
+    <Bai01/>
   );
 }
 

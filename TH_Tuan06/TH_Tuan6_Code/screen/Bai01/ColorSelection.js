@@ -1,4 +1,4 @@
-import React, { useState, useF } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -6,18 +6,17 @@ export default ColorSelection = () =>{
   const navigation = useNavigation();
   const route = useRoute();
   const [previewColor, setPreviewColor] = useState(route.params?.currentColor || 'blue');
-
-  let phoneImage;
-  if (previewColor === 'lightblue') {
-    phoneImage = { uri: 'https://res.cloudinary.com/dkokkltme/image/upload/v1758641111/vs_blue_aa8io7.png' };
-  } else if (previewColor === 'red') {
-    phoneImage = { uri: 'https://res.cloudinary.com/dkokkltme/image/upload/v1758641111/vs_red_btvq0m.png' };
-  } else if (previewColor === 'black') {
-    phoneImage = { uri: 'https://res.cloudinary.com/dkokkltme/image/upload/v1758641111/vs_black_dsjafh.png' };
-  } else {
-    phoneImage = { uri: 'https://res.cloudinary.com/dkokkltme/image/upload/v1758641111/vs_silver_otm6z6.png' };
+  const [colors, setColors] = useState({});
+  useEffect(() => {
+    fetch('https://67c81bf20acf98d07084e0cf.mockapi.io/colors')
+    .then((res) => res.json())
+    .then((data) => setColors(data))
+  }, [])
+  const getImages = () => {
+    colors.map((color) => {
+      
+    })
   }
-
   return(
     <View style={{flex: 1, alignItems: 'center'}}>
       <Image source={phoneImage} style={{width: 100, height: 120}} />
