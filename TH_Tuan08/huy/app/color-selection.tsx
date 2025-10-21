@@ -4,13 +4,15 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface ColorSelectionParams {
   color?: string;
+  id?: string; // Thêm để quay về chi tiết với id
 }
 
 export default function ColorSelectionScreen() {
   const router = useRouter();
-  const { color } = useLocalSearchParams<ColorSelectionParams>();
+  const { color, id } = useLocalSearchParams<ColorSelectionParams>();
   const [previewColor, setPreviewColor] = useState(color || "blue");
 
+  // Demo image dựa trên màu (giữ nguyên từ mã cũ, không phụ thuộc API)
   let phoneImage;
   if (previewColor === "lightblue") {
     phoneImage = { uri: "https://res.cloudinary.com/dkokkltme/image/upload/v1758641111/vs_blue_aa8io7.png" };
@@ -35,7 +37,10 @@ export default function ColorSelectionScreen() {
       ))}
       <TouchableOpacity
         style={styles.doneButton}
-        onPress={() => router.push({ pathname: "/", params: { color: previewColor } })}
+        onPress={() => {
+          // Quay về chi tiết với color mới và id
+          router.push({ pathname: "/detail", params: { id: id || "1", color: previewColor } });
+        }}
       >
         <Text style={styles.doneButtonText}>Xong</Text>
       </TouchableOpacity>
@@ -44,10 +49,10 @@ export default function ColorSelectionScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, alignItems: "center" },
-  phoneImage: { width: 150, height: 200 },
-  title: { fontSize: 16, marginVertical: 16 },
-  colorSwatch: { width: 40, height: 40, marginVertical: 8, borderRadius: 8 },
-  doneButton: { backgroundColor: "blue", padding: 16, marginTop: 12, borderRadius: 8 },
-  doneButtonText: { color: "white", fontWeight: "bold" },
+  container: { flex: 1, padding: 16, alignItems: "center", justifyContent: "center", backgroundColor: "#fff" },
+  phoneImage: { width: 200, height: 400, borderRadius: 12, marginBottom: 20 },
+  title: { fontSize: 18, fontWeight: "bold", marginBottom: 20 },
+  colorSwatch: { width: 30, height: 30, margin: 2, borderRadius: 30 },
+  doneButton: { padding: 12, backgroundColor: "#007AFF", borderRadius: 8, marginTop: 20 },
+  doneButtonText: { fontSize: 16, color: "white", textAlign: "center" },
 });
