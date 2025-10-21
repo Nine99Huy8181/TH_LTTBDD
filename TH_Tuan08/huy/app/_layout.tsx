@@ -1,40 +1,44 @@
-import { Ionicons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
- 
-export default function Bai03Layout(){
-    return(
-        <Tabs
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName: string;
+// app/_layout.tsx
+import { Ionicons } from '@expo/vector-icons';
+import { Drawer } from 'expo-router/drawer';
+import React from 'react';
 
-          if (route.name === "index") {
-            iconName = "home-outline";
-          } else if (route.name === "search") {
-            iconName = "search-outline";
-          } else {
-            iconName = "person-outline";
-          }
-
-          return <Ionicons name={iconName.toString()} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: "#007AFF",
-        tabBarInactiveTintColor: "gray",
-        headerShown: true,
-      })}
+export default function RootLayout() {
+  return (
+    <Drawer
+      screenOptions={{
+        headerStyle: { backgroundColor: '#007AFF' },
+        headerTintColor: '#fff',
+        drawerActiveTintColor: '#007AFF',
+      }}
     >
-      <Tabs.Screen
+      <Drawer.Screen
         name="index"
-        options={{ title: "Home" }}
+        options={{
+          title: 'Home',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" color={color} size={size} />
+          ),
+        }}
       />
-      <Tabs.Screen
-        name="search"
-        options={{ title: "Search" }}
-      />
-      <Tabs.Screen
+      <Drawer.Screen
         name="profile"
-        options={{ title: "Profile" }}
+        options={{
+          title: 'Profile',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" color={color} size={size} />
+          ),
+        }}
       />
-    </Tabs>
-    )
+      <Drawer.Screen
+        name="setting"
+        options={{
+          title: 'Settings',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="settings-outline" color={color} size={size} />
+          ),
+        }}
+      />
+    </Drawer>
+  );
 }

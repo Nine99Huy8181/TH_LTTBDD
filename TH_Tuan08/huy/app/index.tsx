@@ -1,55 +1,33 @@
-import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+// app/index.tsx
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-interface Item {
-  id: string;
-  title: string;
-}
-
-const DATA: Item[] = [
-  { id: "1", title: "Item 1" },
-  { id: "2", title: "Item 2" },
-  { id: "3", title: "Item 3" },
-  { id: "4", title: "Item 4" },
-  { id: "5", title: "Item 5" },
-];
-
-export default function HomeScreen() {
-  const renderItem = ({ item }: { item: Item }) => (
-    <View style={styles.item}>
-      <Text style={styles.itemText}>{item.title}</Text>
-    </View>
-  );
-
+const HomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Home Screen</Text>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      <Text style={styles.header}>Welcome to Home</Text>
+      <Text style={styles.text}>This is the Home screen of the app.</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   header: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 16,
   },
-  item: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
-  itemText: {
+  text: {
     fontSize: 16,
+    color: '#333',
   },
 });
+
+export default HomeScreen;

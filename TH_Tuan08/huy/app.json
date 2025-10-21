@@ -51,6 +51,7 @@
         "projectId": "ccb448e9-bc0a-4f9a-b9fa-ec8c2fbda7dd"
       }
     },
-    "owner": "nguyenquochuy71"
+    "owner": "nguyenquochuy71",
+    "entryPoint": "node_modules/expo-router/entry"
   }
 }
